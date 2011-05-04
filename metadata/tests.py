@@ -1,35 +1,41 @@
-__test__ = {"doctest": """
-To test metadata we use metadata.testapp, so you must have it in
-your INSTALLED_APPS
-
->>> from metadata.testapp.models import TestMetaData
-
->>> test = TestMetaData(foo='b')
->>> test.save()
->>> metadata = test.metadata.create(name='twitter_screen_name', value='rafaelsdm')
->>> metadata = test.metadata.create(name='plurk_user', value='pathiene')
+from django.db import models
+from django.contrib.contenttypes import generic
+from metadata.models import MetaData
+import unittest
 
 
-Metadata can be used as a read-only dict like object (you can't set
-anything by index)
->>> test.metadata['twitter_screen_name']
-u'rafaelsdm'
->>> test.metadata['plurk_user']
-u'pathiene'
->>> test.metadata.keys()
-[u'plurk_user', u'twitter_screen_name']
+class TestMetaData(models.Model):
+    """ We need a Model that has a relation to MetaData to test all its features,
+        so we created one in the test suite. It is not used outside of it """
+    foo = models.CharField(null=True, blank=True, max_length=1)
+    metadata = generic.GenericRelation(MetaData)
 
-Always sorted by the name of metadata
->>> test.metadata.values()
-[u'pathiene', u'rafaelsdm']
+class MetaDataTestCase(unittest.TestCase):
+    def testBasic(self):
+        test = TestMetaData(foo='b')
+        test.save()
+        metadata = test.metadata.create(name='twitter_screen_name', value='rafaelsdm')
+        metadata = test.metadata.create(name='plurk_user', value='pathiene')
 
-You can also iterate over .[iter]items()
->>> test.metadata.items()
-[(u'plurk_user', u'pathiene'), (u'twitter_screen_name', u'rafaelsdm')]
+        # Metadata can be used as dict like object (you can't set
+        self.assertEqual(test.metadata['twitter_screen_name'], u'rafaelsdm')
+        self.assertEqual(test.metadata['plurk_user'], u'pathiene')
 
->>> for name, value in test.metadata.iteritems():
-...     print name, '=', value
-plurk_user = pathiene
-twitter_screen_name = rafaelsdm
-"""}
+        test.metadata['driving'] = 'example'
+        self.assertEqual(test.metadata['driving'], u'example')
 
+        # you can also delete entries
+        test.metadata.get(name='driving').delete()
+
+        # Always sorted by the name of metadata
+        self.assertEqual(test.metadata.keys(), [u'plurk_user', u'twitter_screen_name'])
+        self.assertEqual(test.metadata.values(), [u'pathiene', u'rafaelsdm'])
+
+        # You can also iterate over .[iter]items()
+        self.assertEqual(test.metadata.items(), [(u'plurk_user', u'pathiene'), (u'twitter_screen_name', u'rafaelsdm')])
+
+        result = []
+        for name, value in test.metadata.iteritems():
+          result.append([name, value])
+
+        self.assertEqual(result, [[u'plurk_user', u'pathiene'], [u'twitter_screen_name', u'rafaelsdm']])
