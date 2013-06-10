@@ -60,7 +60,7 @@ class MetaData(models.Model):
     value = models.CharField(max_length=256, db_index=True)
 
     content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    object_id = models.PositiveIntegerField(db_index=True)
     content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     objects = MetaDataManager()
