@@ -11,8 +11,8 @@ class Migration(SchemaMigration):
         # Adding model 'MetaData'
         db.create_table('metadata_metadata', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=256, db_index=True)),
-            ('value', self.gf('django.db.models.fields.CharField')(max_length=256, db_index=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255, db_index=True)),
+            ('value', self.gf('django.db.models.fields.CharField')(max_length=255, db_index=True)),
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
         ))
@@ -37,9 +37,9 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'MetaData'},
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256', 'db_index': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'value': ('django.db.models.fields.CharField', [], {'max_length': '256', 'db_index': 'True'})
+            'value': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'})
         }
     }
 

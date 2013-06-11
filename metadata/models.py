@@ -56,8 +56,8 @@ class MetaDataManager(models.Manager):
         return list(self.iteritems())
 
 class MetaData(models.Model):
-    name = models.CharField(max_length=256, db_index=True)
-    value = models.CharField(max_length=256, db_index=True)
+    name = models.CharField(max_length=255, db_index=True)
+    value = models.CharField(max_length=255, db_index=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField(db_index=True)

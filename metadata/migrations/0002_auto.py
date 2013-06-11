@@ -6,14 +6,11 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
-    def forwards(self, orm):
-        
+    def forwards(self, orm):       
         # Adding index on 'MetaData', fields ['object_id']
         db.create_index('metadata_metadata', ['object_id'])
 
-
-    def backwards(self, orm):
-        
+    def backwards(self, orm):        
         # Removing index on 'MetaData', fields ['object_id']
         db.delete_index('metadata_metadata', ['object_id'])
 
@@ -30,9 +27,9 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'MetaData'},
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256', 'db_index': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'}),
             'object_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'value': ('django.db.models.fields.CharField', [], {'max_length': '256', 'db_index': 'True'})
+            'value': ('django.db.models.fields.CharField', [], {'max_length': '255', 'db_index': 'True'})
         }
     }
 
