@@ -9,7 +9,7 @@ class MetaDataManager(models.Manager):
     def __getitem__(self, key):
         '''Return the value of metadata or None if not found'''
         try:
-            return self.get_query_set().get(name=key).value
+            return self.get_queryset().get(name=key).value
         except MetaData.DoesNotExist, e:
             return None
 
@@ -33,7 +33,7 @@ class MetaDataManager(models.Manager):
             return False
 
     def iterkeys(self):
-        for metadata in self.get_query_set().order_by('name'):
+        for metadata in self.get_queryset().order_by('name'):
             yield metadata.name
 
     def keys(self):
@@ -42,14 +42,14 @@ class MetaDataManager(models.Manager):
     def itervalues(self):
         # This way we can zip iterkeys and itervalues and retrieve the correct
         # information
-        for metadata in self.get_query_set().order_by('name'):
+        for metadata in self.get_queryset().order_by('name'):
             yield metadata.value
 
     def values(self):
         return list(self.itervalues())
 
     def iteritems(self):
-        for metadata in self.get_query_set().order_by('name'):
+        for metadata in self.get_queryset().order_by('name'):
             yield metadata.name, metadata.value
 
     def items(self):
