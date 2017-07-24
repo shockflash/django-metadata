@@ -6,8 +6,8 @@ setup(
     name='django-metadata',
     version='1.1-beta',
     description='Django Metadata allows you to add more data than the default fields',
-    author='Leander Hanwald',
-    author_email='leander@hanwald.de',
+    author='LH',
+    author_email='lh@lh.com',
     url='http://code.google.com/p/django-metadata/',
     packages=[
         'metadata',
