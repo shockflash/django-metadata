@@ -1,7 +1,7 @@
 import json
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 class MetaDataManager(models.Manager):
     '''This manager allow to with MetaData.objects as a Dict (useful for
@@ -61,7 +61,7 @@ class MetaData(models.Model):
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField(db_index=True)
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     objects = MetaDataManager()
     def as_tuple(self):
