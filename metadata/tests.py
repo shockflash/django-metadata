@@ -1,9 +1,10 @@
+"""
 from django.db import models
 from django.contrib.contenttypes import generic
 from metadata.models import MetaData
 import unittest
 
-"""
+
 Deactivated, couldn't make the Test table work
 
 class TestMetaData(models.Model):

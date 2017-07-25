@@ -1,8 +1,8 @@
 from metadata.models import MetaData
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
 
-class MetaDataTabularInline(generic.GenericTabularInline):
+class MetaDataTabularInline(GenericTabularInline):
     model = MetaData
     
-class MetaDataStackedInline(generic.GenericStackedInline):
+class MetaDataStackedInline(GenericStackedInline):
     model = MetaData
